@@ -12,6 +12,7 @@ body {
 }
 
 .section__header {
+    display: flex;
     position: relative;
     height: 80vh;
     color: #fff;
@@ -35,31 +36,28 @@ body {
 }
 
 .section__header-center {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 100%;
+    margin: auto;
+    z-index: 1;
     text-align: center;
     text-transform: uppercase;
-    transform: translate(-50%, -50%);
 }
 
 .section__header-center h1 {
     margin: 0;
-    font-size: 2.2em;
+    font-size: 2.2rem;
     letter-spacing: 0.4em
 }
 
 .section__header-center h2 {
     margin: 0;
-    font-size: 1.2em;
+    font-size: 1.2rem;
     line-height: 1.6;
     letter-spacing: 0.3em
 }
 
 .section__header-center h1 + h2 {
     margin: 1em 0 0;
-    font-size: 0.7em;
+    font-size: 0.7rem;
     letter-spacing: 0.6em;
     font-weight: normal;
 }
@@ -69,7 +67,7 @@ body {
     left: 5%;
     bottom: 5vh;
     width: 90%;
-    font-size: 0.8em;
+    font-size: 0.8rem;
     text-align: center;
     font-style: normal;
     color: #e6e6e6;
@@ -77,6 +75,11 @@ body {
 
 .section__content {
     margin: 8vh auto 0;
+    text-align: justify;
+    -webkit-hyphens: auto;
+    -moz-hyphens: auto;
+    -ms-hyphens: auto;
+    hyphens: auto;
 }
 
 .section__content p,
@@ -87,7 +90,7 @@ body {
 }
 
 .section__content h2 {
-    font-size: 1.7em;
+    font-size: 1.7rem;
     line-height: 1.2;
     text-transform: uppercase;
 }
@@ -103,8 +106,8 @@ body {
     margin-top: 3vh;
 }
 
-.section:nth-of-type(1) p:first-of-type::first-letter {
-    font-size: 3em;
+.section_1 p:first-of-type::first-letter {
+    font-size: 3rem;
     line-height: 0;
     font-weight: bold;
 }
@@ -131,7 +134,7 @@ body {
 }
 
 .note_small_yes {
-    font-size: 0.8em;
+    font-size: 0.8rem;
     font-weight: normal;
 }
 
@@ -139,126 +142,96 @@ body {
     margin: 3vh auto 0;
     width: 80%;
     max-width: 320px;
-    font-size: 0.8em;
-}
-
-/* Justify and hyphens */
-
-@supports (-webkit-hyphens: auto) {
-    .section__content p, .note {
-        text-align: justify;
-        -webkit-hyphens: auto;
-    }
-}
-
-@supports (-moz-hyphens: auto) {
-    .section__content p, .note {
-        text-align: justify;
-        -moz-hyphens: auto;
-    }
-}
-
-@supports (-ms-hyphens: auto) {
-    .section__content p, .note {
-        text-align: justify;
-        -ms-hyphens: auto;
-    }
-}
-
-@supports (hyphens: auto) {
-    .section__content p, .note {
-        text-align: justify;
-        hyphens: auto;
-    }
+    font-size: 0.8rem;
 }
 
 /* Sections' backgrounds */
 
-.section:nth-of-type(1) .section__header {
+.section__header_1 {
     background-image: url(img/section-1-header@crop1000.jpeg);
 }
 
 @media screen and (min-width: 900px) {
-    .section:nth-of-type(1) .section__header {
+    .section__header_1 {
         background-image: url(img/section-1-header.jpeg);
         background-attachment: fixed;
     }
 }
 
-.section:nth-of-type(2) .section__header {
+.section__header_2 {
     background-image: url(img/section-2-header@crop1000.jpeg);
 }
 
 @media screen and (min-width: 900px) {
-    .section:nth-of-type(2) .section__header {
+    .section__header_2 {
         background-image: url(img/section-2-header.jpeg);
     }
 }
 
-.section:nth-of-type(3) .section__header {
+.section__header_3 {
     background-image: url(img/section-3-header@crop1000.jpeg);
 }
 
 @media screen and (min-width: 900px) {
-    .section:nth-of-type(3) .section__header {
+    .section__header_3 {
         background-image: url(img/section-3-header.jpeg);
     }
 }
 
-.section:nth-of-type(4) .section__header {
+.section__header_4 {
     background-image: url(img/section-4-header@crop1000.jpeg);
 }
 
 @media screen and (min-width: 900px) {
-    .section:nth-of-type(4) .section__header {
+    .section__header_4 {
         background-image: url(img/section-4-header.jpeg);
     }
 }
 
-.section:nth-of-type(5) .section__header {
+.section__header_5 {
     background-image: url(img/section-5-header@crop1000.jpeg);
 }
 
 @media screen and (min-width: 900px) {
-    .section:nth-of-type(5) .section__header {
+    .section__header_5 {
         background-image: url(img/section-5-header.jpeg);
     }
 }
 
-.section:nth-of-type(6) .section__header {
+.section__header_6 {
     background-image: url(img/section-6-header@crop1000.jpeg);
 }
 
 @media screen and (min-width: 900px) {
-    .section:nth-of-type(6) .section__header {
+    .section__header_6 {
         background-image: url(img/section-6-header.jpeg);
     }
 }
 
-.section:nth-of-type(7) .section__header {
+.section__header_7 {
     background-image: url(img/section-7-header@crop1000.jpeg);
 }
 
 @media screen and (min-width: 900px) {
-    .section:nth-of-type(7) .section__header {
+    .section__header_7 {
         background-image: url(img/section-7-header.jpeg);
     }
 }
 
-.section:nth-of-type(8) .section__header {
+.section__header_8 {
     background-image: url(img/section-8-header.jpeg);
 }
 
-.section:nth-of-type(9) .section__header {
+.section__header_9 {
     background-image: url(img/section-9-header.jpeg);
 }
 
-.section:nth-of-type(10) .section__header {
+.section__header_10 {
     background-image: url(img/section-10-header@crop1000.jpeg);
 }
 
 @media screen and (min-width: 900px) {
-    .section:nth-of-type(10) .section__header {
+    .section__header_10 {
         background-image: url(img/section-10-header.jpeg);
     }
 }
@@ -267,7 +240,7 @@ body {
 
 @media screen and (min-width: 768px) {
     .section__header h2 {
-        font-size: 1.6em;
+        font-size: 1.6rem;
     }
 }
 
@@ -283,7 +256,7 @@ body {
     }
 
     .section__header h2 {
-        font-size: 2em;
+        font-size: 2rem;
     }
 }
 
