@@ -5,7 +5,7 @@
     <title>Dungeon of Doom</title>
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/app.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 </head>
 
 <body>
@@ -47,6 +47,13 @@
         <div class="popup popup_hidden popup_level_2">
             <div class="popup__content popup__content_level_2" touch-action="none">
                 <div class="popup__close">╳</div>
+                <div class="door-riddle">
+                    <div class="door-riddle__button"></div>
+                    <div class="door-riddle__vessel">
+                        <div class="door-riddle__vessel-cover"></div>
+                    </div>
+                    <div class="door-riddle__button"></div>
+                </div>
             </div>
         </div>
         <div class="popup popup_hidden popup_level_3">
@@ -57,7 +64,6 @@
     </div>
 
     <script src="https://code.jquery.com/pep/0.4.1/pep.js"></script>
-    <script src="https://cdn.jsdelivr.net/lodash/4.13.1/lodash.min.js"></script>
     <script src="js/doorBase.js"></script>
     <script src="js/doorOthers.js"></script>
     <script src="js/app.js"></script>

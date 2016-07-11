@@ -86,7 +86,7 @@ function Door1(number, onUnlock) {
         });
     });
 
-    container.addEventListener('pointermove', _.throttle(_onContainerPointerMove.bind(this), 50));
+    container.addEventListener('pointermove', _onContainerPointerMove.bind(this));
     container.addEventListener('pointerup', _onContainerPointerUp.bind(this));
     container.addEventListener('pointercancel', _onContainerPointerUp.bind(this));
 
@@ -155,6 +155,7 @@ function Door1(number, onUnlock) {
             this.unlock();
         }
     }
+
     // ==== END Напишите свой код для открытия второй двери здесь ====
 }
 Door1.prototype = Object.create(DoorBase.prototype);
@@ -170,10 +171,76 @@ function Door2(number, onUnlock) {
     DoorBase.apply(this, arguments);
 
     // ==== Напишите свой код для открытия третей двери здесь ====
-    // Для примера дверь откроется просто по клику на неё
-    this.popup.addEventListener('click', function() {
-        this.unlock();
-    }.bind(this));
+    var buttons = [].slice.call(this.popup.querySelectorAll('.door-riddle__button'));
+    var vesselCover = this.popup.querySelector('.door-riddle__vessel-cover');
+    var buttonsPressed = 0;
+    var level = 0;
+    var decreaseTimer = null;
+    var pressTimerByPointerId = {};
+
+    var PRESS_INCREASE = 4;
+    var TIMER_DECREASE = 2;
+    var DECREASE_INTERVAL = 300;
+    var SECOND_PRESS_TIMEOUT = 100;
+
+    buttons.forEach(function(button) {
+        button.addEventListener('pointerdown', _onButtonPointerDown.bind(this));
+        button.addEventListener('pointerup', _onButtonPointerUp.bind(this));
+        button.addEventListener('pointerleave', _onButtonPointerUp.bind(this));
+        button.addEventListener('pointercancel', _onButtonPointerUp.bind(this));
+    }, this);
+
+    function _onButtonPointerDown(e) {
+        buttonsPressed++;
+
+        pressTimerByPointerId[e.pointerId] = setTimeout(function() {
+            buttonsPressed = 0;
+        }, SECOND_PRESS_TIMEOUT);
+
+        if (buttonsPressed === 2) {
+            level += PRESS_INCREASE;
+            buttonsPressed = 0;
+        }
+
+        if (!decreaseTimer && level > 0) {
+            decreaseTimer = setTimeout(decreaseLevelByTime, DECREASE_INTERVAL);
+        }
+
+        e.target.classList.add('door-riddle__button_pressed');
+
+        updateVesselLevel();
+        checkCondition.apply(this);
+    }
+
+    function _onButtonPointerUp(e) {
+        e.target.classList.remove('door-riddle__button_pressed');
+        clearTimeout(pressTimerByPointerId[e.pointerId]);
+        buttonsPressed = 0;
+    }
+
+    function decreaseLevelByTime() {
+        level -= TIMER_DECREASE;
+        if (level < 0) {
+            level = 0;
+            clearTimeout(decreaseTimer);
+            decreaseTimer = null;
+        } else {
+            decreaseTimer = setTimeout(decreaseLevelByTime, DECREASE_INTERVAL);
+        }
+        updateVesselLevel();
+    }
+
+    function updateVesselLevel() {
+        vesselCover.style.top = (100 - level) + '%';
+    }
+
+    function checkCondition() {
+        if (level >= 100) {
+            clearTimeout(decreaseTimer);
+            decreaseTimer = null;
+            this.unlock();
+        }
+    }
     // ==== END Напишите свой код для открытия третей двери здесь ====
 }
 Door2.prototype = Object.create(DoorBase.prototype);
