@@ -227,8 +227,9 @@ body {
     height: 64px;
     background: no-repeat center;
     background-size: 64px;
-    transition: transform 0.05s;
     border-radius: 50%;
+    will-change: transform;
+    backface-visibility: hidden;
 }
 
 .locks-riddle__key_dragging {
