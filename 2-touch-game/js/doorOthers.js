@@ -115,11 +115,11 @@ function Door1(number, onUnlock) {
         var pointerId = e.pointerId;
         var data = pointerData[pointerId];
 
-        e.target.releasePointerCapture(e.pointerId);
-
         if (!data) {
             return;
         }
+
+        e.target.releasePointerCapture(e.pointerId);
 
         // Проверяем правильно ли отпущен ключ
         var droppedArea = dropAreas.filter(function(dropArea) {
@@ -203,7 +203,7 @@ function Door2(number, onUnlock) {
         }, SECOND_PRESS_TIMEOUT);
 
         if (buttonsPressed === 2) {
-            level += PRESS_INCREASE;
+            level = Math.min(level + PRESS_INCREASE, 100);
             buttonsPressed = 0;
         }
 
@@ -225,7 +225,7 @@ function Door2(number, onUnlock) {
 
     function decreaseLevelByTime() {
         level -= TIMER_DECREASE;
-        if (level < 0) {
+        if (level <= 0) {
             level = 0;
             clearTimeout(decreaseTimer);
             decreaseTimer = null;
@@ -236,7 +236,9 @@ function Door2(number, onUnlock) {
     }
 
     function updateVesselLevel() {
-        vesselCover.style.top = (100 - level) + '%';
+        requestAnimationFrame(function() {
+            vesselCover.style.transform = 'translateY(' + (100 - level) + '%)';
+        });
     }
 
     function checkCondition() {
