@@ -260,3 +260,163 @@ body {
     height: 150%;
     background-color: rgba(125, 175, 195, 0.8);
 }
+
+.rotate-riddle {
+    height: 100%;
+    display: flex;
+    flex-flow: column-reverse;
+    justify-content: center;
+    align-items: center;
+}
+
+.rotate-riddle__lock {
+    position: relative;
+    width: 260px;
+    height: 260px;
+    border-radius: 50%;
+    overflow: hidden;
+    background-color: #fff;
+    pointer-events: none;
+    will-change: transform;
+    backface-visibility: hidden;
+}
+
+.rotate-riddle__key-wrapper {
+    position: relative;
+    width: 8px;
+    height: 0;
+    pointer-events: none;
+}
+
+.rotate-riddle__key {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 69px;
+    color: #fff;
+    background-color: currentColor;
+}
+
+.rotate-riddle__key::before {
+    content: '';
+    position: absolute;
+    top: 46px;
+    left: -10px;
+    width: 28px;
+    height: 2px;
+    background-color: currentColor;
+}
+
+.rotate-riddle__key::after {
+    content: '';
+    position: absolute;
+    top: 26px;
+    left: -15px;
+    width: 38px;
+    height: 6px;
+    background-color: currentColor;
+}
+
+.rotate-riddle__key-pattern {
+    position: absolute;
+    top: 0;
+    left: 125px;
+    width: 10px;
+    height: 70px;
+    color: black;
+    background-color: currentColor;
+    transform-origin: 50% 130px;
+}
+
+.rotate-riddle__key-pattern_1::before {
+    content: '';
+    position: absolute;
+    top: 45px;
+    left: -10px;
+    width: 30px;
+    height: 4px;
+    background-color: currentColor;
+}
+
+.rotate-riddle__key-pattern_1::after {
+    content: '';
+    position: absolute;
+    top: 25px;
+    left: -15px;
+    width: 40px;
+    height: 8px;
+    background-color: currentColor;
+}
+
+.rotate-riddle__key-pattern_2 {
+    transform: rotate(90deg);
+}
+
+.rotate-riddle__key-pattern_2::before {
+    content: '';
+    position: absolute;
+    top: 45px;
+    left: -10px;
+    width: 30px;
+    height: 4px;
+    background-color: currentColor;
+}
+
+.rotate-riddle__key-pattern_2::after {
+    content: '';
+    position: absolute;
+    top: 25px;
+    left: -10px;
+    width: 30px;
+    height: 4px;
+    background-color: currentColor;
+}
+
+.rotate-riddle__key-pattern_3 {
+    transform: rotate(180deg);
+}
+
+.rotate-riddle__key-pattern_3::before {
+    content: '';
+    position: absolute;
+    top: 45px;
+    left: -10px;
+    width: 30px;
+    height: 8px;
+    background-color: currentColor;
+}
+
+.rotate-riddle__key-pattern_3::after {
+    content: '';
+    position: absolute;
+    top: 25px;
+    left: -15px;
+    width: 40px;
+    height: 4px;
+    background-color: currentColor;
+}
+
+.rotate-riddle__key-pattern_4 {
+    transform: rotate(270deg);
+}
+
+.rotate-riddle__key-pattern_4::before {
+    content: '';
+    position: absolute;
+    top: 25px;
+    left: -10px;
+    width: 30px;
+    height: 4px;
+    background-color: currentColor;
+}
+
+.rotate-riddle__key-pattern_4::after {
+    content: '';
+    position: absolute;
+    top: 45px;
+    left: -15px;
+    width: 40px;
+    height: 8px;
+    background-color: currentColor;
+}

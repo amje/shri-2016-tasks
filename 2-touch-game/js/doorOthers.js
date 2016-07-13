@@ -160,6 +160,7 @@ function Door1(number, onUnlock) {
             this.unlock();
         }
     }
+
     // ==== END Напишите свой код для открытия второй двери здесь ====
 }
 Door1.prototype = Object.create(DoorBase.prototype);
@@ -245,6 +246,7 @@ function Door2(number, onUnlock) {
             this.unlock();
         }
     }
+
     // ==== END Напишите свой код для открытия третей двери здесь ====
 }
 Door2.prototype = Object.create(DoorBase.prototype);
@@ -261,10 +263,110 @@ function Box(number, onUnlock) {
     DoorBase.apply(this, arguments);
 
     // ==== Напишите свой код для открытия сундука здесь ====
-    // Для примера сундук откроется просто по клику на него
-    this.popup.addEventListener('click', function() {
-        this.unlock();
-    }.bind(this));
+    var container = this.popup.querySelector('.rotate-riddle');
+    var lock = this.popup.querySelector('.rotate-riddle__lock');
+    var n = [0, -1];
+    var SCALE_PRECISION = 1e-2;
+    var ANGLE_PRECISION = Math.PI / 360;
+    var startState = {};
+    var startAngle;
+    var startScale;
+    var currentAngle = Math.random() * Math.PI * 2;
+    var currentScale = 0;
+    var gestureStarted = false;
+    var pointerEvents = [];
+
+    container.addEventListener('pointerdown', _onPointerDown.bind(this));
+    container.addEventListener('pointermove', _onPointerMove.bind(this));
+    container.addEventListener('pointerup', _onPointerUp.bind(this));
+    container.addEventListener('pointerleave', _onPointerUp.bind(this));
+    container.addEventListener('pointercancel', _onPointerUp.bind(this));
+
+    update();
+
+    function radToDeg(value) {
+        return value / Math.PI * 180;
+    }
+
+    function _onPointerDown(e) {
+        if (!gestureStarted) {
+            pointerEvents.push(e);
+
+            if (pointerEvents.length === 2) {
+                gestureStarted = true;
+                startState = getGestureState();
+                startAngle = currentAngle;
+                startScale = currentScale;
+            }
+        }
+    }
+
+    function _onPointerMove(e) {
+        if (!gestureStarted) {
+            return;
+        }
+
+        for (var i = 0; i < pointerEvents.length; i++) {
+            if (pointerEvents[i].pointerId === e.pointerId) {
+                pointerEvents[i] = e;
+                break;
+            }
+        }
+
+        var currentState = getGestureState();
+        var angleDiff = startState.angle - currentState.angle;
+        var distanceDiff = startState.distance - currentState.distance;
+        currentAngle = (startAngle - angleDiff + 2 * Math.PI) % (2 * Math.PI);
+        currentScale = Math.max(0, Math.min(startScale - distanceDiff / 50 * 0.2, 3));
+
+        update();
+        checkCondition.apply(this);
+    }
+
+    function _onPointerUp(e) {
+        for (var i = 0; i < pointerEvents.length; i++) {
+            if (pointerEvents[i].pointerId === e.pointerId) {
+                pointerEvents.splice(i, 1);
+                break;
+            }
+        }
+
+        if (pointerEvents.length !== 2) {
+            gestureStarted = false;
+        }
+    }
+
+    function getGestureState() {
+        var p1 = pointerEvents[0];
+        var p2 = pointerEvents[1];
+
+        var v = [p1.clientX - p2.clientX, p1.clientY - p2.clientY];
+        var angle = Math.atan2(n[0] * v[1] - v[0] * n[1], n[0] * v[0] + n[1] * v[1]);
+        var distance = Math.sqrt(
+            (p1.clientX - p2.clientX) * (p1.clientX - p2.clientX) + (p1.clientY - p2.clientY) * (p1.clientY - p2.clientY)
+        );
+
+        return {
+            angle: angle,
+            distance: distance
+        }
+    }
+
+    function update() {
+        requestAnimationFrame(function() {
+            lock.style.transform = ['rotate(', radToDeg(currentAngle), 'deg) ', 'scale(', currentScale, ')'].join('');
+        });
+    }
+
+    function checkCondition() {
+        if (
+            (currentAngle < ANGLE_PRECISION || currentAngle > Math.PI * 2 - ANGLE_PRECISION) &&
+            Math.abs(currentScale - 1) < SCALE_PRECISION
+        ) {
+            this.unlock();
+        }
+    }
+
     // ==== END Напишите свой код для открытия сундука здесь ====
 
     this.showCongratulations = function() {
