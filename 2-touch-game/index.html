@@ -5,7 +5,7 @@
     <title>Dungeon of Doom</title>
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/app.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 </head>
 
 <body>
@@ -28,18 +28,48 @@
             </div>
         </div>
         <div class="popup popup_hidden popup_level_1">
-            <div class="popup__content popup__content_level_1">
+            <div class="popup__content popup__content_level_1" touch-action="none">
                 <div class="popup__close">╳</div>
+                <div class="locks-riddle">
+                    <div class="locks-riddle__locks">
+                        <div class="locks-riddle__lock locks-riddle__lock_color_yellow"></div>
+                        <div class="locks-riddle__lock locks-riddle__lock_color_blue"></div>
+                        <div class="locks-riddle__lock locks-riddle__lock_color_yellow"></div>
+                    </div>
+                    <div class="locks-riddle__keys">
+                        <div class="locks-riddle__key locks-riddle__key_color_blue"></div>
+                        <div class="locks-riddle__key locks-riddle__key_color_yellow"></div>
+                        <div class="locks-riddle__key locks-riddle__key_color_yellow"></div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="popup popup_hidden popup_level_2">
-            <div class="popup__content popup__content_level_2">
+            <div class="popup__content popup__content_level_2" touch-action="none">
                 <div class="popup__close">╳</div>
+                <div class="door-riddle">
+                    <div class="door-riddle__button"></div>
+                    <div class="door-riddle__vessel">
+                        <div class="door-riddle__vessel-cover"></div>
+                    </div>
+                    <div class="door-riddle__button"></div>
+                </div>
             </div>
         </div>
         <div class="popup popup_hidden popup_level_3">
-            <div class="popup__content popup__content_level_3">
+            <div class="popup__content popup__content_level_3" touch-action="none">
                 <div class="popup__close">╳</div>
+                <div class="rotate-riddle">
+                    <div class="rotate-riddle__lock">
+                        <div class="rotate-riddle__key-pattern rotate-riddle__key-pattern_1"></div>
+                        <div class="rotate-riddle__key-pattern rotate-riddle__key-pattern_2"></div>
+                        <div class="rotate-riddle__key-pattern rotate-riddle__key-pattern_3"></div>
+                        <div class="rotate-riddle__key-pattern rotate-riddle__key-pattern_4"></div>
+                    </div>
+                    <div class="rotate-riddle__key-wrapper">
+                        <div class="rotate-riddle__key"></div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
