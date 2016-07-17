@@ -9,7 +9,7 @@
     <script defer src="main.js"></script>
 </head>
 <body>
-    <section class="page">
+    <section class="page page_form">
         <h1 class="page__header">Киноглушитель</h1>
         <div class="page__content">
             <form class="form" autocomplete="on">
@@ -38,6 +38,20 @@
             </form>
         </div>
     </section>
-    <section class="page page_hidden"></section>
+    <section class="page page_player page_hidden">
+        <div class="page__content page__content_player">
+            <div class="player">
+                <audio class="player__audio"></audio>
+                <video class="player__video"></video>
+                <canvas class="player__canvas"></canvas>
+                <div class="player__controls">
+                    <div class="play-button"></div>
+                    <div class="progress-bar">
+                        <div class="progress-bar__played"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 </body>
 </html>

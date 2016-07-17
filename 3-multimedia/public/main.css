@@ -12,10 +12,6 @@ body {
     background-color: #d8d8d8;
 }
 
-.page {
-
-}
-
 .page__header {
     margin: 2em 0 0;
     font-size: 2em;
@@ -25,6 +21,10 @@ body {
 
 .page__content {
     margin-top: 3em;
+}
+
+.page__content_player {
+    text-align: center;
 }
 
 .page_hidden {
@@ -67,4 +67,92 @@ body {
 
 .form__button:active {
     background-color: #f1cf49;
+}
+
+.player {
+    position: relative;
+    display: inline-block;
+    max-width: 600px;
+    line-height: 0;
+    overflow: hidden;
+}
+
+.player__video {
+    max-width: 100%;
+}
+
+.player__canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.player__controls {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    padding: 15px 10px 0;
+    background: linear-gradient(to top, #000, transparent) no-repeat;
+    user-select: none;
+}
+
+.play-button {
+    margin-right: 10px;
+    width: 24px;
+    height: 24px;
+    line-height: 1;
+    font-size: 24px;
+    color: #fff;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.play-button::before {
+    content: "\25ba";
+    text-align: center;
+}
+
+.play-button_pause::before {
+    content: "\275a \275a"
+}
+
+.progress-bar {
+    position: relative;
+    flex-grow: 1;
+    height: 7px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 2px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+
+.progress-bar::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    box-shadow: inset 0 0 2px #000;
+}
+
+.progress-bar__played {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    border-radius: 2px;
+    transform-origin: left;
+    transform: scaleX(0);
+    will-change: transform;
+    backface-visibility: hidden;
 }
