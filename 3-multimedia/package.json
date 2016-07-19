@@ -1,0 +1,23 @@
+{
+  "name": "movie-silencer",
+  "version": "1.0.0",
+  "description": "",
+  "author": "Andrey Morozov",
+  "license": "ISC",
+  "engines": {
+    "node": ">=6.0.0"
+  },
+  "scripts": {
+    "lint": "./node_modules/.bin/eslint --color ./src/js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "./node_modules/.bin/webpack-dev-server --proggress --colors --inline --hot --content-base ./public",
+    "build": "./node_modules/.bin/webpack"
+  },
+  "devDependencies": {
+    "babel-core": "^6.10.4",
+    "babel-loader": "^6.2.4",
+    "babel-preset-es2015": "^6.9.0",
+    "webpack": "^1.13.1",
+    "webpack-dev-server": "^1.14.1"
+  }
+}

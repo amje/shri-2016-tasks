@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Киноглушитель</title>
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="main.css">
+    <link href="https://fonts.googleapis.com/css?family=Oranienbaum" rel="stylesheet">
+    <script defer src="main.js"></script>
+</head>
+<body>
+    <section class="page page_form">
+        <h1 class="page__header">Киноглушитель</h1>
+        <div class="page__content">
+            <form class="form" autocomplete="on">
+                <input
+                    name="video"
+                    class="form__input"
+                    type="url"
+                    placeholder="Ссылка на видео"
+                    required
+                />
+                <input
+                    name="subs"
+                    class="form__input"
+                    type="url"
+                    placeholder="Ссылка на субтитры"
+                    required
+                />
+                <input
+                    name="audio"
+                    class="form__input"
+                    type="url"
+                    placeholder="Ссылка на саундтрек"
+                    required
+                />
+                <button class="form__button">Заглушить</button>
+            </form>
+        </div>
+    </section>
+    <section class="page page_player page_hidden">
+        <div class="page__content page__content_player">
+            <div class="player">
+                <audio class="player__audio" crossorigin="anonymous"></audio>
+                <video class="player__video player__video_source" crossorigin="anonymous"></video>
+                <video class="player__video player__video_texture" crossorigin="anonymous"></video>
+                <canvas class="player__canvas player__canvas_paused"></canvas>
+                <div class="player__controls">
+                    <div class="play-button"></div>
+                    <div class="progress-bar">
+                        <div class="progress-bar__played"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
