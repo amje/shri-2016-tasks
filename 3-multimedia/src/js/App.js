@@ -1,26 +1,21 @@
 import Form from './Form';
 import Player from './Player';
 
+const CORS_PROXY = 'http://cors.io/?u=';
+
 class App {
     constructor() {
         this.form = new Form(this.handleFormSubmit.bind(this));
         this.player = new Player();
-
-        // For testing
-        this.handleFormSubmit({
-            video: 'kinopoisk.ru-Sherlock-284167.mp4',
-            subs: 'https://raw.githubusercontent.com/shri-msk-2016/dz-multimedia/master/subs.srt',
-            audio: 'https://upload.wikimedia.org/wikipedia/commons/a/a6/Maple_Leaf_RagQ.ogg'
-        });
     }
 
     handleFormSubmit(urls) {
-        this.showPlayerPage();
         this.getSubs(urls.subs)
             .then(parseSubs)
             .then((parsedSubs) => {
-                this.player.init(urls.video, urls.audio, parsedSubs);
+                this.player.init(CORS_PROXY + urls.video, CORS_PROXY + urls.audio, parsedSubs);
             })
+            .then(this.showPlayerPage)
             .catch((e) => console.log(e));
     }
 

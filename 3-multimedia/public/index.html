@@ -42,9 +42,10 @@
     <section class="page page_player page_hidden">
         <div class="page__content page__content_player">
             <div class="player">
-                <audio class="player__audio"></audio>
-                <video class="player__video"></video>
-                <canvas class="player__canvas"></canvas>
+                <audio class="player__audio" crossorigin="anonymous"></audio>
+                <video class="player__video player__video_source" crossorigin="anonymous"></video>
+                <video class="player__video player__video_texture" crossorigin="anonymous"></video>
+                <canvas class="player__canvas player__canvas_paused"></canvas>
                 <div class="player__controls">
                     <div class="play-button"></div>
                     <div class="progress-bar">
