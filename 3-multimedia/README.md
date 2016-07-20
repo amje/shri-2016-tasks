@@ -8,7 +8,7 @@
 ## Результат
 [Киноглушитель](http://luckytrue.com/shri/multimedia)
 
-## Same-domain ссылки на видео
+## Same-domain ссылки
 Видео &ndash;
 [MP4](http://luckytrue.com/shri/multimedia/sherlock.mp4),
 [WebM](http://luckytrue.com/shri/multimedia/sherlock.webm)
