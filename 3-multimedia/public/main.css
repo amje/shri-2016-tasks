@@ -31,6 +31,13 @@ body {
     display: none;
 }
 
+.page-icon {
+    margin-left: 10px;
+    fill: currentColor;
+    vertical-align: middle;
+    transform: scaleX(-1);
+}
+
 .form {
     margin: 0 auto;
     max-width: 230px;
