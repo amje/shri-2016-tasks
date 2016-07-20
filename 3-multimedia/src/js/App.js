@@ -1,8 +1,6 @@
 import Form from './Form';
 import Player from './Player';
 
-const CORS_PROXY = 'http://cors.io/?u=';
-
 class App {
     constructor() {
         this.form = new Form(this.handleFormSubmit.bind(this));
@@ -13,7 +11,7 @@ class App {
         this.getSubs(urls.subs)
             .then(parseSubs)
             .then((parsedSubs) => {
-                this.player.init(CORS_PROXY + urls.video, CORS_PROXY + urls.audio, parsedSubs);
+                this.player.init(urls.video, urls.audio, parsedSubs);
             })
             .then(this.showPlayerPage)
             .catch((e) => console.log(e));
@@ -51,10 +49,10 @@ function parseSubs(data) {
         const [from, to] = time.split(' --> ');
         const fromSeconds = subTimeStringToSeconds(from);
         const toSeconds = subTimeStringToSeconds(to);
-        const duration = Math.round((toSeconds - fromSeconds) * 1e3) / 1e3;
+        const duration = toSeconds - fromSeconds;
 
         return {
-            start: Math.round(toSeconds * 1e3) / 1e3,
+            start: toSeconds,
             duration,
             text
         };

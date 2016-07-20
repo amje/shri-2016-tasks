@@ -1,5 +1,5 @@
-export const CANVAS_WIDTH = 360;
-export const FPS = 18;
+const CANVAS_WIDTH = 480;
+const FPS = 18;
 
 export default class Player {
     constructor() {
@@ -17,8 +17,6 @@ export default class Player {
         this.videoSource.addEventListener('timeupdate', this.handleVideoTimeUpdate.bind(this));
         this.videoSource.addEventListener('ended', this.handleVideoEnded.bind(this));
 
-        this.videoTexture.loop = true;
-        this.videoTexture.src = 'old_movie_texture.mp4';
         this.playing = false;
 
         this.render = this.render.bind(this);
@@ -43,7 +41,10 @@ export default class Player {
             this.progressPlayed.style.transform = `scaleX(${this.videoSource.currentTime / this.videoSource.duration})`;
 
             const nextSub = this.subs[this.subIndex];
-            if (nextSub && this.videoSource.currentTime >= nextSub.start) {
+            if (nextSub &&
+                this.videoSource.currentTime - nextSub.start >= 0 &&
+                this.videoSource.currentTime - nextSub.start < 2
+            ) {
                 this.showSub(nextSub);
             }
         });
@@ -56,6 +57,7 @@ export default class Player {
         this.playing = false;
         this.subIndex = 0;
         this.playButton.classList.remove('play-button_pause');
+        this.canvas.classList.add('player__canvas_paused');
     }
 
     play() {
@@ -76,6 +78,7 @@ export default class Player {
 
     showSub(sub) {
         this.sub = sub;
+        this.sub.textLines = sub.text.split('\n');
         this.subIndex++;
         this.videoSource.pause();
         setTimeout(() => {
@@ -98,11 +101,15 @@ export default class Player {
 
         this.width = CANVAS_WIDTH;
         this.height = this.width / ratio;
+        this.fontSize = this.height / 14;
+        this.lineHeight = this.fontSize * 1.2;
 
         this.canvas.width = this.width;
         this.canvas.height = this.height;
         this.ctx.fillStyle = '#000';
         this.ctx.fillRect(0, 0, this.width, this.height);
+        this.ctx.font = `${this.fontSize}px Oranienbaum`;
+        this.ctx.textBaseline = 'middle';
     }
 
     render(time) {
@@ -114,10 +121,8 @@ export default class Player {
             if (this.sub) {
                 this.renderSub();
             } else {
-                let frame = this.getFrameFromVideo();
-
-                this.desaturateFrame(frame);
-                this.ctx.putImageData(frame, 0, 0);
+                this.renderFrameFromVideo();
+                this.desaturateFrame();
             }
 
             this.overlayTexture();
@@ -127,20 +132,44 @@ export default class Player {
         requestAnimationFrame(this.render);
     }
 
-    renderSub() {
-        this.ctx.fillStyle = '#222';
-        this.ctx.fillRect(0, 0, this.width, this.height);
-        let fontSize = this.height / 14;
-        let lineHeight = fontSize * 1.2;
-        this.ctx.font = `${fontSize}px Oranienbaum`;
-        this.ctx.textBaseline = 'middle';
-        this.ctx.fillStyle = '#fff';
-        this.sub.text.split('\n').forEach((line, index, text) => {
-            let length = text.length;
-            let offset = (index - length / 2 + 0.5) * lineHeight;
+    renderFrameFromVideo() {
+        this.ctx.drawImage(this.videoSource, 0, 0, this.width, this.height);
+    }
 
-            this.ctx.fillText(line, 10, this.height / 2 + offset);
-        });
+    renderSub() {
+        const ctx = this.ctx;
+        const textLines = this.sub.textLines;
+        const textLinesLength = textLines.length;
+        let offset;
+
+        ctx.fillStyle = '#222';
+        ctx.fillRect(0, 0, this.width, this.height);
+        ctx.fillStyle = '#fff';
+
+        for (let i = 0; i < textLinesLength; i++) {
+            offset = (i - textLinesLength / 2 + 0.5) * this.lineHeight;
+            ctx.fillText(textLines[i], 10, this.height / 2 + offset);
+        }
+    }
+
+    desaturateFrame() {
+        const frame = this.ctx.getImageData(0, 0, this.width, this.height);
+        const data = frame.data;
+        const length = data.length / 4;
+
+        for (let i = 0; i < length; i++) {
+            const rIndex = i * 4;
+            const gIndex = i * 4 + 1;
+            const bIndex = i * 4 + 2;
+            const R = data[rIndex];
+            const G = data[gIndex];
+            const B = data[bIndex];
+            const gray = R * 0.21 + G * 0.72 + B * 0.07;
+
+            data[rIndex] = data[gIndex] = data[bIndex] = gray;
+        }
+
+        this.ctx.putImageData(frame, 0, 0);
     }
 
     overlayTexture() {
@@ -149,44 +178,5 @@ export default class Player {
         this.ctx.globalCompositeOperation = 'soft-light';
         this.ctx.drawImage(this.videoTexture, 0, 0, this.width, this.height);
         this.ctx.globalCompositeOperation = lastOperation;
-    }
-
-    getFrameFromVideo() {
-        this.ctx.drawImage(this.videoSource, 0, 0, this.width, this.height);
-
-        return this.ctx.getImageData(0, 0, this.width, this.height);
-    }
-
-    desaturateFrame(frame) {
-        const length = frame.data.length / 4;
-
-        for (let i = 0; i < length; i++) {
-            const rIndex = i * 4;
-            const gIndex = i * 4 + 1;
-            const bIndex = i * 4 + 2;
-            const R = frame.data[rIndex];
-            const G = frame.data[gIndex];
-            const B = frame.data[bIndex];
-            const gray = grayscale([R, G, B], 'luminosity');
-
-            frame.data[rIndex] = gray;
-            frame.data[gIndex] = gray;
-            frame.data[bIndex] = gray;
-        }
-
-        return frame;
-    }
-}
-
-function grayscale([R, G, B], algorithm) {
-    switch (algorithm) {
-        case 'lightness':
-            return (Math.max(R, G, B) + Math.min(R, G, B)) / 2;
-        case 'average':
-            return (R + G + B) / 3;
-        case 'luminosity':
-            return R * 0.21 + G * 0.72 + B * 0.07;
-        default:
-            return 0;
     }
 }
