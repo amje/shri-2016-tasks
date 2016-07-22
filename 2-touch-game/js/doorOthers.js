@@ -192,25 +192,25 @@ function Door2(number, onUnlock) {
 
     container.addEventListener('pointerdown', function(e) {
         if (e.target.classList.contains('door-riddle__button')) {
-            _onButtonPointerDown.call(this);
+            _onButtonPointerDown.call(this, e);
         }
     });
 
     container.addEventListener('pointerup', function(e) {
         if (e.target.classList.contains('door-riddle__button')) {
-            _onButtonPointerUp.call(this);
+            _onButtonPointerUp.call(this, e);
         }
     });
 
     container.addEventListener('pointerleave', function(e) {
         if (e.target.classList.contains('door-riddle__button')) {
-            _onButtonPointerUp.call(this);
+            _onButtonPointerUp.call(this, e);
         }
     });
 
     container.addEventListener('pointercancel', function(e) {
         if (e.target.classList.contains('door-riddle__button')) {
-            _onButtonPointerUp.call(this);
+            _onButtonPointerUp.call(this, e);
         }
     });
 
