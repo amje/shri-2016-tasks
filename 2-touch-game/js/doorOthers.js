@@ -143,7 +143,9 @@ function Door1(number, onUnlock) {
 
     function updatePosition(pointer) {
         requestAnimationFrame(function() {
-            pointer.target.style.transform = 'translate(' + [pointer.currentX - pointer.startX, pointer.currentY - pointer.startY].join('px, ') + 'px)';
+            var offsetX = pointer.currentX - pointer.startX;
+            var offsetY = pointer.currentY - pointer.startY;
+            pointer.target.style.transform = 'translate(' + offsetX + 'px, ' + offsetY + 'px)';
         });
     }
 
@@ -176,7 +178,7 @@ function Door2(number, onUnlock) {
     DoorBase.apply(this, arguments);
 
     // ==== Напишите свой код для открытия третей двери здесь ====
-    var buttons = [].slice.call(this.popup.querySelectorAll('.door-riddle__button'));
+    var container = this.popup.querySelector('.door-riddle');
     var vesselCover = this.popup.querySelector('.door-riddle__vessel-cover');
     var buttonsPressed = 0;
     var level = 0;
@@ -188,12 +190,29 @@ function Door2(number, onUnlock) {
     var DECREASE_INTERVAL = 300;
     var SECOND_PRESS_TIMEOUT = 100;
 
-    buttons.forEach(function(button) {
-        button.addEventListener('pointerdown', _onButtonPointerDown.bind(this));
-        button.addEventListener('pointerup', _onButtonPointerUp.bind(this));
-        button.addEventListener('pointerleave', _onButtonPointerUp.bind(this));
-        button.addEventListener('pointercancel', _onButtonPointerUp.bind(this));
-    }, this);
+    container.addEventListener('pointerdown', function(e) {
+        if (e.target.classList.contains('door-riddle__button')) {
+            _onButtonPointerDown.call(this);
+        }
+    });
+
+    container.addEventListener('pointerup', function(e) {
+        if (e.target.classList.contains('door-riddle__button')) {
+            _onButtonPointerUp.call(this);
+        }
+    });
+
+    container.addEventListener('pointerleave', function(e) {
+        if (e.target.classList.contains('door-riddle__button')) {
+            _onButtonPointerUp.call(this);
+        }
+    });
+
+    container.addEventListener('pointercancel', function(e) {
+        if (e.target.classList.contains('door-riddle__button')) {
+            _onButtonPointerUp.call(this);
+        }
+    });
 
     function _onButtonPointerDown(e) {
         buttonsPressed++;
@@ -237,7 +256,9 @@ function Door2(number, onUnlock) {
 
     function updateVesselLevel() {
         requestAnimationFrame(function() {
-            vesselCover.style.transform = 'translateY(' + (100 - level) + '%)';
+            var vesselTop = 100 - level;
+
+            vesselCover.style.transform = 'translateY(' + vesselTop + '%)';
         });
     }
 
@@ -318,6 +339,7 @@ function Box(number, onUnlock) {
         var currentState = getGestureState();
         var angleDiff = startState.angle - currentState.angle;
         var distanceDiff = startState.distance - currentState.distance;
+
         currentAngle = (startAngle - angleDiff + 2 * Math.PI) % (2 * Math.PI);
         currentScale = Math.max(0, Math.min(startScale - distanceDiff / 50 * 0.2, 3));
 
@@ -344,9 +366,9 @@ function Box(number, onUnlock) {
 
         var v = [p1.clientX - p2.clientX, p1.clientY - p2.clientY];
         var angle = Math.atan2(n[0] * v[1] - v[0] * n[1], n[0] * v[0] + n[1] * v[1]);
-        var distance = Math.sqrt(
-            (p1.clientX - p2.clientX) * (p1.clientX - p2.clientX) + (p1.clientY - p2.clientY) * (p1.clientY - p2.clientY)
-        );
+        var diffX = p1.clientX - p2.clientX;
+        var diffY = p1.clientY - p2.clientY;
+        var distance = Math.sqrt(diffX * diffX + diffY * diffY);
 
         return {
             angle: angle,
