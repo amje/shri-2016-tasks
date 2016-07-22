@@ -178,6 +178,7 @@ function Door2(number, onUnlock) {
     DoorBase.apply(this, arguments);
 
     // ==== Напишите свой код для открытия третей двери здесь ====
+    var self = this;
     var container = this.popup.querySelector('.door-riddle');
     var vesselCover = this.popup.querySelector('.door-riddle__vessel-cover');
     var buttonsPressed = 0;
@@ -192,25 +193,25 @@ function Door2(number, onUnlock) {
 
     container.addEventListener('pointerdown', function(e) {
         if (e.target.classList.contains('door-riddle__button')) {
-            _onButtonPointerDown.call(this, e);
+            _onButtonPointerDown.call(self, e);
         }
     });
 
     container.addEventListener('pointerup', function(e) {
         if (e.target.classList.contains('door-riddle__button')) {
-            _onButtonPointerUp.call(this, e);
+            _onButtonPointerUp.call(self, e);
         }
     });
 
     container.addEventListener('pointerleave', function(e) {
         if (e.target.classList.contains('door-riddle__button')) {
-            _onButtonPointerUp.call(this, e);
+            _onButtonPointerUp.call(self, e);
         }
     });
 
     container.addEventListener('pointercancel', function(e) {
         if (e.target.classList.contains('door-riddle__button')) {
-            _onButtonPointerUp.call(this, e);
+            _onButtonPointerUp.call(self, e);
         }
     });
 
