@@ -1,0 +1,7 @@
+{
+  "name": "phonegap-BEM-build",
+  "version": "1.0.0",
+  "dependencies": {
+    "bem-components": "3.0.0"
+  }
+}
