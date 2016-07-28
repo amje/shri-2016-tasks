@@ -11,4 +11,5 @@
 - По не понятной мне причине, любое действие с контекстом canvas "выбивает" его из лейаута (ничего не рендерится). Скорее всего есть нюансы с позиционированием canvas в WebView
 
 ## Ссылки
-[Скриншоты](https://yadi.sk/d/PBuDJ_5uth22C)
+- [Скриншоты](https://yadi.sk/d/PBuDJ_5uth22C)
+- [.apk](https://build.phonegap.com/apps/2188058/download/android)
