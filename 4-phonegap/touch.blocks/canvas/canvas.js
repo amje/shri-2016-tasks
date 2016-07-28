@@ -39,7 +39,7 @@ modules.define('canvas', ['i-bem__dom'], function(provide, BEMDOM) {
                 var data = frame.data;
                 var length = data.length / 4;
 
-                for (let i = 0; i < length; i++) {
+                for (var i = 0; i < length; i++) {
                     var rIndex = i * 4;
                     var gIndex = i * 4 + 1;
                     var bIndex = i * 4 + 2;
@@ -55,7 +55,7 @@ modules.define('canvas', ['i-bem__dom'], function(provide, BEMDOM) {
                 var data = frame.data;
                 var length = data.length / 4;
 
-                for (let i = 0; i < length; i++) {
+                for (var i = 0; i < length; i++) {
                     var rIndex = i * 4;
                     var gIndex = i * 4 + 1;
                     var bIndex = i * 4 + 2;
@@ -72,7 +72,7 @@ modules.define('canvas', ['i-bem__dom'], function(provide, BEMDOM) {
                 var data = frame.data;
                 var length = data.length / 4;
 
-                for (let i = 0; i < length; i++) {
+                for (var i = 0; i < length; i++) {
                     var rIndex = i * 4;
                     var gIndex = i * 4 + 1;
                     var bIndex = i * 4 + 2;
