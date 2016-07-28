@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="com.luckytrue.phonegap" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
-    <name>PhoneGap Camera</name>
-    <description>PhoneGap Testing App</description>
+    <name>ymblz</name>
+    <description>PhoneGap Test App</description>
     <author>Andrey Morozov</author>
     <content src="index.html" />
     <icon src="icon.png" />

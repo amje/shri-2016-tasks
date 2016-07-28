@@ -17,7 +17,8 @@
   "scripts": {
     "start": "enb server",
     "postinstall": "npm run deps",
-    "deps": "bower i --allow-root"
+    "deps": "bower i --allow-root",
+    "deploy": "cp ./touch.bundles/index/{index.html,index.min.css,index.min.js} ./www"
   },
   "private": true
 }
